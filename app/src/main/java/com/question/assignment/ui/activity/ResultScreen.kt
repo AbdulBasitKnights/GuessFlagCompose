@@ -10,10 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.question.assignment.ui.model.CountryFlag
 
 @Composable
-fun ResultScreen(isCorrect: Boolean, correctCountry: CountryFlag, onNext: () -> Unit) {
+fun ResultScreen(navController: NavController, isCorrect: Boolean, correctCountry: CountryFlag, onNext: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

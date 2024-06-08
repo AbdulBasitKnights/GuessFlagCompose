@@ -1,14 +1,9 @@
 package com.question.assignment.ui.activity
-
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Button
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,19 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.question.assignment.presentation.common.CountryViewModel
 import com.question.assignment.ui.model.Country
-import com.question.assignment.ui.model.CountryFlag
 
 @Composable
-fun GuessTheCountryScreen(navController: NavController, countries: List<Country>?= emptyList()) {
-    var selectedCountry by remember { mutableStateOf<Country?>(null) }
-    val randomCountry = remember { countries?.random() }
+fun GuessCountryScreen(navController: NavController) {
     val viewModel: CountryViewModel = hiltViewModel()
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -45,21 +34,19 @@ fun GuessTheCountryScreen(navController: NavController, countries: List<Country>
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = rememberAsyncImagePainter("https://raw.githubusercontent.com/hjnilsson/country-flags/master/png1000px/${randomCountry?.name?.lowercase()}.png"),
-            contentDescription = null,
-            modifier = Modifier.size(200.dp)
-        )
-        DropdownMenu(
-            expanded = true,
-            onDismissRequest = { /*TODO*/ },
-        ) {
-            countries?.forEach { country ->
-                DropdownMenuItem(onClick = { selectedCountry = country }) {
-                    Text(country.name)
-                }
-            }
+        Button(onClick = { navController.navigate("GuessCountryScreen") }) {
+            Text("Guess the New Country")
         }
+        Button(onClick = { navController.navigate("GuessHintsScreen") }) {
+            Text("Guess-Hints New")
+        }
+        Button(onClick = { navController.navigate("GuessTheFlagsScreen") }) {
+            Text("Guess the Flag New")
+        }
+        Button(onClick = { navController.navigate("AdvancedLevelsScreen") }) {
+            Text("Advanced Level")
+        }
+
     }
     if (countries.isNotEmpty()) {
         var selectedCountry by remember { mutableStateOf("") }
@@ -74,3 +61,4 @@ fun GuessTheCountryScreen(navController: NavController, countries: List<Country>
         }
     }
 }
+

@@ -1,7 +1,7 @@
 package com.question.assignment.data.datasource.remote
 
 import android.util.Log
-import com.question.assignment.common.Constants
+import com.question.assignment.presentation.util.Constants
 import com.question.assignment.data.datasource.remote.dto.QuestionResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.features.ClientRequestException
