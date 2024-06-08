@@ -5,10 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.question.assignment.R
-import com.question.assignment.data.repository.CountryRepository
-import com.question.assignment.ui.activity.AdvancedLevelScreen
-import com.question.assignment.ui.activity.GuessHintsScreen
-import com.question.assignment.ui.activity.GuessTheCountryScreen
 import com.question.assignment.ui.activity.MainMenuScreen
 import com.question.assignment.ui.activity.ResultScreen
 import com.question.assignment.ui.model.CountryFlag
@@ -35,30 +31,6 @@ fun AppNavHost(navController: NavHostController) {
                     "GuessTheFlag" -> navController.navigate(Screen.GuessTheFlag.route)
                     "AdvancedLevel" -> navController.navigate(Screen.AdvancedLevel.route)
                 }
-            }
-        }
-        composable(Screen.GuessTheCountry.route) {
-            val countries = CountryRepository.getCountries()
-            GuessTheCountryScreen(countries) { isCorrect, country ->
-                navController.navigate(Screen.Result.createRoute(isCorrect, country.flagName))
-            }
-        }
-        composable(Screen.GuessHints.route) {
-            val randomCountry = CountryRepository.getRandomCountry()
-            GuessHintsScreen(randomCountry) { isCorrect, country ->
-                navController.navigate(Screen.Result.createRoute(isCorrect, country.flagName))
-            }
-        }
-        composable(Screen.GuessTheFlag.route) {
-            val countries = CountryRepository.getCountries()
-            GuessTheCountryScreen(countries) { isCorrect, country ->
-                navController.navigate(Screen.Result.createRoute(isCorrect, country.flagName))
-            }
-        }
-        composable(Screen.AdvancedLevel.route) {
-            val countries = CountryRepository.getCountries()
-            AdvancedLevelScreen(countries) { isCorrect, countryList ->
-                navController.navigate(Screen.Result.createRoute(isCorrect, countryList.joinToString(", ") { it.flagName }))
             }
         }
         composable(Screen.Result.route) { backStackEntry ->

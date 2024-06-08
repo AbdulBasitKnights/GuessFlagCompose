@@ -5,11 +5,6 @@ import android.content.Context
 import android.util.Log
 import androidx.room.Room
 import com.question.assignment.data.datasource.local.QuestionsCacheDB
-import com.question.assignment.data.datasource.remote.TriviaService
-import com.question.assignment.data.repository.QuestionsRepository
-import com.question.assignment.data.repository.QuestionsRepositoryImpl
-import com.question.assignment.data.repository.ScoreRepository
-import com.question.assignment.data.repository.ScoreRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,12 +39,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesScoreRepository(
-        @ApplicationContext context: Context
-    ): ScoreRepository = ScoreRepositoryImpl(context = context)
-
-    @Provides
-    @Singleton
     fun providesHttpClient() = HttpClient(Android) {
         install(Logging) {
             logger = object : Logger {
@@ -72,17 +61,4 @@ object AppModule {
             accept(ContentType.Application.Json)
         }
     }
-
-    @Provides
-    @Singleton
-    fun providesTriviaService(client: HttpClient) = TriviaService(client)
-
-
-    @Provides
-    @Singleton
-    fun providesQuestionsRepository(
-        db: QuestionsCacheDB,
-        triviaService: TriviaService
-    ): QuestionsRepository =
-        QuestionsRepositoryImpl(db.questionCacheDao, triviaService)
 }
