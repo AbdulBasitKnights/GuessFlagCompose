@@ -10,7 +10,7 @@ import io.ktor.client.features.ServerResponseException
 import io.ktor.client.request.*
 
 
-class TriviaService(
+class GuessFlagService(
     private val client: HttpClient
 ) {
     suspend fun getQuestions(): List<QuestionResponse> {

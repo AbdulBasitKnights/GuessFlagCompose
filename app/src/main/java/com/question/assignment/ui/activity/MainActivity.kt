@@ -27,7 +27,7 @@ fun CountryFlagsApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "mainMenu"){
         composable("mainMenu") { MainMenuScreen(navController)}
-        composable("GuessTheCountryScreen") { GuessTheCountryScreen(navController) }
+        composable("GuessCountryScreen") { GuessTheCountryScreen(navController) }
         composable("GuessHintScreen") { GuessHintsScreen(navController) }
         composable("GuessTheFlagScreen") { GuessTheFlagScreen(navController) }
         composable("AdvancedLevelScreen") { AdvancedLevelScreen(navController) }
