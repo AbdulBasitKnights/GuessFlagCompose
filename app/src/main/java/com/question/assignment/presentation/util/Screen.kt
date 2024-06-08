@@ -1,5 +1,6 @@
 package com.question.assignment.presentation.util
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -21,10 +22,10 @@ sealed class Screen(val route: String) {
 }
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController, context: Context) {
     NavHost(navController, startDestination = Screen.MainMenu.route) {
         composable(Screen.MainMenu.route) {
-            MainMenuScreen { gameMode ->
+            MainMenuScreen(context) { gameMode ->
                 when (gameMode) {
                     "GuessTheCountry" -> navController.navigate(Screen.GuessTheCountry.route)
                     "GuessHints" -> navController.navigate(Screen.GuessHints.route)

@@ -7,9 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import com.question.assignment.presentation.util.AppNavHost
 import com.question.assignment.ui.theme.QuestionAssignmentTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuestionAssignmentTheme{
             val navController = rememberNavController()
-                AppNavHost(navController)
+                AppNavHost(navController,context=this)
             }
         }
     }
