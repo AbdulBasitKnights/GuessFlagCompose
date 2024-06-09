@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -56,8 +56,9 @@ class GuessFlagActivity : ComponentActivity() {
         var userInput by remember { mutableStateOf("") }
         var resultMessage by remember { mutableStateOf("") }
         var currentCountryCode by remember { mutableStateOf("AD") } // Default code
-        var selectedCountryIndex by remember { mutableStateOf(0) }
-        if (!countries.isNullOrEmpty()) {
+        var selectedCountryIndex by remember { mutableStateOf(-1) } // No selection initially
+
+        if (countries.isNotEmpty()) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -76,7 +77,6 @@ class GuessFlagActivity : ComponentActivity() {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-
                 TextField(
                     value = userInput,
                     onValueChange = { userInput = it },
@@ -86,10 +86,12 @@ class GuessFlagActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Country list with search
-                LazyColumn(
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
                     modifier = Modifier
-                        .widthIn(max = 200.dp) // Set a maximum width
-                        .heightIn(max = 200.dp) // Set a maximum height
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .padding(8.dp)
                 ) {
                     items(countries.filter {
                         it.name.contains(
@@ -102,78 +104,77 @@ class GuessFlagActivity : ComponentActivity() {
                                 selectedCountryIndex = countries.indexOf(country)
                             },
                             modifier = Modifier
-                                .padding(4.dp) // Add padding between buttons
-                                .fillMaxWidth() // Make the buttons fill the width
+                                .padding(4.dp)
+                                .fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = if (selectedCountryIndex == countries.indexOf(
+                                        country
+                                    )
+                                ) Color.Gray else Color.LightGray,
+                                contentColor = Color.Black
+                            )
                         ) {
                             Text(
                                 text = country.name,
-                                fontSize = 12.sp // Small text size
+                                fontSize = 12.sp
                             )
-
                         }
                     }
                 }
-                        Spacer(modifier = Modifier.height(16.dp))
 
-                        TextField(
-                            value = countries[selectedCountryIndex].name,
-                            onValueChange = { userInput = it },
-                            label = { Text("Enter country name") }
-                        )
+                Spacer(modifier = Modifier.height(16.dp))
 
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Button(
-                            onClick = {
-                                val countryName = countries[selectedCountryIndex].name
-                                resultMessage =
-                                    if (userInput.equals(countryName, ignoreCase = true)) {
-                                        "Correct!"
-                                    } else {
-                                        "Incorrect. Try again."
-                                    }
-                            },
-                            modifier = Modifier.padding(vertical = 8.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = if (resultMessage == "Correct!") Color.Green else Color.Red,
-                                contentColor = Color.White
-                            )
-                        ) {
-                            Text("Submit")
+                Button(
+                    onClick = {
+                        if (selectedCountryIndex != -1) {
+                            val countryName = countries[selectedCountryIndex].code
+                            resultMessage = if (currentCountryCode.equals(countryName, ignoreCase = true)) {
+                                "Correct!"
+                            } else {
+                                "Incorrect. Try again."
+                            }
                         }
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Text(resultMessage)
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Button(onClick = {
-                            userInput = ""
-                            resultMessage = ""
-                            currentCountryCode = countries.random().code.lowercase(Locale.ROOT)
-                        }) {
-                            Text("Next Flag")
-                        }
-                    }
-
+                    },
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = if (resultMessage == "Correct!") Color.Green else Color.Red,
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text("Submit")
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(resultMessage)
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(onClick = {
+                    userInput = ""
+                    resultMessage = ""
+                    currentCountryCode = countries.random().code.lowercase(Locale.ROOT)
+                }) {
+                    Text("Next Flag")
+                }
+            }
+        } else {
+//            Text("Loading...", modifier = Modifier.align(Alignment.CenterVertically))
         }
-    @Preview
+    }
+
+    @Composable
+    fun getDrawableResId(context: Context, countryCode: String): Int {
+        return context.resources.getIdentifier(
+            countryCode.lowercase(Locale.ROOT),
+            "drawable",
+            context.packageName
+        )
+    }
+
+    @Preview(showBackground = true)
     @Composable
     fun PreviewGuessCountryScreen() {
         GuessCountryScreen()
     }
-    }
-    @Composable
-    fun getDrawableResId(context: Context, countryCode: String): Int {
-        return context.resources.getIdentifier(countryCode.lowercase(Locale.ROOT), "drawable", context.packageName)
-    }
-
-
-
-
-
-
-
+}
