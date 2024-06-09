@@ -58,6 +58,7 @@ class GuessFlagActivity : ComponentActivity() {
         var currentCountryCode by remember { mutableStateOf(randomFlags.random()) } // Default code
         var selectedCountryIndex by remember { mutableStateOf(-1) } // No selection initially
         if (countries.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,

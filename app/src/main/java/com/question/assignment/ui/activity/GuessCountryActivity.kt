@@ -82,6 +82,7 @@ class GuessCountryActivity : ComponentActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
+                Spacer(modifier = Modifier.height(16.dp))
                 correctCountry?.let {
                     Text(text = "Select the flag for: ${it.name}", fontSize = 20.sp)
                 }
