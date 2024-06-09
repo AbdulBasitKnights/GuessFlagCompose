@@ -15,7 +15,7 @@ import com.question.assignment.ui.theme.QuestionAssignmentTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             QuestionAssignmentTheme{
                 CountryFlagsApp()
