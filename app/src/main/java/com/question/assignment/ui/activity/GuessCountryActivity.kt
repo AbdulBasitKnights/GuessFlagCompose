@@ -86,7 +86,6 @@ class GuessCountryActivity : ComponentActivity() {
                 correctCountry?.let {
                     Text(text = "Select the flag for: ${it.name}", fontSize = 20.sp)
                 }
-
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
