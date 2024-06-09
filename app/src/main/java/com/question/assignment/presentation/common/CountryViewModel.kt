@@ -19,10 +19,22 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
     private val _countries = MutableStateFlow<List<Country>>(emptyList())
     val countries: StateFlow<List<Country>> get() = _countries
 
-    fun loadCountries(context: Context) {
+    private val _currentCountryCode = MutableStateFlow("")
+    val currentCountryCode: StateFlow<String> get() = _currentCountryCode
+
+    init {
+        loadCountries(application)
+    }
+
+    private fun loadCountries(context: Context) {
         viewModelScope.launch {
             _countries.value = loadCountriesFromJson(context)
+            _currentCountryCode.value = _countries.value.random().code
         }
+    }
+
+    fun nextCountry() {
+        _currentCountryCode.value = _countries.value.random().code
     }
 
     private suspend fun loadCountriesFromJson(context: Context): List<Country> {
@@ -41,7 +53,6 @@ class CountryViewModel(application: Application) : AndroidViewModel(application)
                 val name = jsonObject.getString(key)
                 countryList.add(Country(key, name))
             }
-            countriesData.value=countryList
             countryList
         }
     }

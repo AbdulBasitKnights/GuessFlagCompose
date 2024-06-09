@@ -36,9 +36,6 @@ class GuessCountryActivity : ComponentActivity() {
     fun GuessCountryScreen() {
         val viewModel: CountryViewModel = viewModel()
         val context = LocalContext.current
-        LaunchedEffect(Unit) {
-            viewModel.loadCountries(context)
-        }
         val countries by viewModel.countries.collectAsState()
 
         Column(

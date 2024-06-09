@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.question.assignment.presentation.common.CountryViewModel
 import com.question.assignment.ui.theme.QuestionAssignmentTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,11 +27,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun CountryFlagsApp() {
     val navController = rememberNavController()
+    val sharedViewModel: CountryViewModel = viewModel()
     NavHost(navController = navController, startDestination = "mainMenu"){
-        composable("mainMenu") { MainMenuScreen()}
-        composable("GuessCountryScreen") { GuessTheCountryScreen(navController) }
-        composable("GuessHintScreen") { GuessHintsScreen(navController) }
-        composable("GuessTheFlagScreen") { GuessTheFlagScreen(navController) }
-        composable("AdvancedLevelScreen") { AdvancedLevelScreen(navController) }
+        composable("mainMenu") { MainMenuScreen(sharedViewModel)}
     }
 }

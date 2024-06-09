@@ -6,20 +6,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.question.assignment.presentation.common.CountryViewModel
 
 @Composable
-fun MainMenuScreen() {
+fun MainMenuScreen(sharedViewModel: CountryViewModel) {
     val context = LocalContext.current
-    val viewModel: CountryViewModel = viewModel()
-    LaunchedEffect(Unit) {
-        viewModel.loadCountries(context)
-    }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
