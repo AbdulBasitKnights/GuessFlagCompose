@@ -48,16 +48,15 @@ class GuessFlagActivity : ComponentActivity() {
         }
 
     }
-
     @Composable
     fun GuessCountryScreen() {
         val viewModel: CountryViewModel = viewModel()
         val countries by viewModel.countries.collectAsState()
         var userInput by remember { mutableStateOf("") }
         var resultMessage by remember { mutableStateOf("") }
-        var currentCountryCode by remember { mutableStateOf("AD") } // Default code
+        val randomFlags by remember { mutableStateOf(ArrayList<String>(listOf("AF","PK","UK","US","SA","IN","GB","BN","AX","BB"))) }
+        var currentCountryCode by remember { mutableStateOf(randomFlags.random()) } // Default code
         var selectedCountryIndex by remember { mutableStateOf(-1) } // No selection initially
-
         if (countries.isNotEmpty()) {
             Column(
                 modifier = Modifier.fillMaxSize(),
