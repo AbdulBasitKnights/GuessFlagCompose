@@ -158,7 +158,13 @@ class GuessFlagActivity : ComponentActivity() {
                 }
             }
         } else {
-//            Text("Loading...", modifier = Modifier.align(Alignment.CenterVertically))
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text("Loading...")
+            }
         }
     }
 
