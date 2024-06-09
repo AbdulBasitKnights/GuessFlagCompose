@@ -20,13 +20,13 @@ fun MainMenuScreen(sharedViewModel: CountryViewModel) {
         verticalArrangement = Arrangement.Center
     ) {
         Button(onClick = {
-            context.startActivity(Intent(context,GuessCountryActivity::class.java)) }) {
+            context.startActivity(Intent(context,GuessFlagActivity::class.java)) }) {
             Text("Guess the Country")
         }
         Button(onClick = {context.startActivity(Intent(context,GuessHintsActivity::class.java)) }) {
             Text("Guess-Hints")
         }
-        Button(onClick = {context.startActivity(Intent(context,GuessFlagActivity::class.java)) }) {
+        Button(onClick = {context.startActivity(Intent(context,GuessCountryActivity::class.java)) }) {
             Text("Guess the Flag")
         }
         Button(onClick = { context.startActivity(Intent(context,AdvancedLevelActivity::class.java))  }) {
