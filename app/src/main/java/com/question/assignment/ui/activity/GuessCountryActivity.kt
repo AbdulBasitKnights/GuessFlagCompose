@@ -41,7 +41,7 @@ import java.util.Locale
 class GuessCountryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             GuessCountryScreen()
         }
@@ -74,6 +74,7 @@ class GuessCountryActivity : ComponentActivity() {
         }
 
         if (countries.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -127,7 +128,9 @@ class GuessCountryActivity : ComponentActivity() {
             }
         } else {
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
