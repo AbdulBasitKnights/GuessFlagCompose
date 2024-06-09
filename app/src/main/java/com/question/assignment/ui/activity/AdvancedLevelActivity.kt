@@ -40,7 +40,7 @@ class AdvancedLevelActivity : ComponentActivity() {
             verticalArrangement = Arrangement.Center
         ) {
             Button(onClick = { }) {
-                Text("Guess the New Country")
+                Text("Advanced Level")
             }
           /*  if (countries.isNotEmpty()) {
                 var selectedCountry by remember { mutableStateOf("") }
