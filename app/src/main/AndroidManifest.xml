@@ -26,6 +26,15 @@
         <activity android:name=".ui.activity.GuessFlagActivity"
             android:screenOrientation="portrait"
             android:exported="true"/>
+        <activity android:name=".ui.activity.GuessCountryActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+        <activity android:name=".ui.activity.GuessHintsActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
+        <activity android:name=".ui.activity.AdvancedLevelActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"/>
     </application>
 
 </manifest>

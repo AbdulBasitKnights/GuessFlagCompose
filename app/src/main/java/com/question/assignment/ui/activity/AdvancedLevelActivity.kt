@@ -1,7 +1,6 @@
 package com.question.assignment.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,9 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.question.assignment.presentation.common.CountryViewModel
-import com.question.assignment.presentation.util.countriesData
 
-class GuessFlagActivity : ComponentActivity() {
+class AdvancedLevelActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,8 +34,6 @@ class GuessFlagActivity : ComponentActivity() {
     }
     @Composable
     fun GuessCountryScreen() {
-        val countries=countriesData.value
-        Log.e("countriesData","FlagActivity : $countries")
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,7 +42,7 @@ class GuessFlagActivity : ComponentActivity() {
             Button(onClick = { }) {
                 Text("Guess the New Country")
             }
-            if (countries.isNotEmpty()) {
+          /*  if (countries.isNotEmpty()) {
                 var selectedCountry by remember { mutableStateOf("") }
 
                 BasicTextField(
@@ -54,10 +50,10 @@ class GuessFlagActivity : ComponentActivity() {
                     onValueChange = { selectedCountry = it }
                 )
 
-                Button(onClick = { /* Submit answer */ }) {
+                Button(onClick = { *//* Submit answer *//* }) {
                     Text("Submit")
                 }
-            }
+            }*/
         }
 
     }

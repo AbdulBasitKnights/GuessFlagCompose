@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
 fun CountryFlagsApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "mainMenu"){
-        composable("mainMenu") { MainMenuScreen(navController)}
+        composable("mainMenu") { MainMenuScreen()}
         composable("GuessCountryScreen") { GuessTheCountryScreen(navController) }
         composable("GuessHintScreen") { GuessHintsScreen(navController) }
         composable("GuessTheFlagScreen") { GuessTheFlagScreen(navController) }

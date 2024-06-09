@@ -1,7 +1,6 @@
 package com.question.assignment.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,9 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.question.assignment.presentation.common.CountryViewModel
-import com.question.assignment.presentation.util.countriesData
 
-class GuessFlagActivity : ComponentActivity() {
+class GuessCountryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,8 +34,13 @@ class GuessFlagActivity : ComponentActivity() {
     }
     @Composable
     fun GuessCountryScreen() {
-        val countries=countriesData.value
-        Log.e("countriesData","FlagActivity : $countries")
+        val viewModel: CountryViewModel = viewModel()
+        val context = LocalContext.current
+        LaunchedEffect(Unit) {
+            viewModel.loadCountries(context)
+        }
+        val countries by viewModel.countries.collectAsState()
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
