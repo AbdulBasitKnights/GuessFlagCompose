@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Country Flag</string>
-    <string name="guess_logo">Quizella Logo</string>
+    <string name="app_name">Guess Country Flag</string>
     <string name="guess_moto">Take a quiz, test your intelligence</string>
     <string name="play">PLAY!</string>
     <string name="best_of_all_time">Best of all time</string>
