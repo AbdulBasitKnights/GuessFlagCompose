@@ -7,9 +7,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +33,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -38,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.question.assignment.R
 import com.question.assignment.presentation.common.CountryViewModel
 import com.question.assignment.ui.model.Country
 import java.util.Locale
@@ -81,6 +86,20 @@ class AdvancedLevelActivity : ComponentActivity() {
         }
 
         if (countries.isNotEmpty()) {
+            // Background drawable
+            val backgroundDrawable: Painter = painterResource(id = R.drawable.appbg)
+
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                // Background Image
+                Image(
+                    painter = backgroundDrawable,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.FillHeight
+                )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -98,7 +117,12 @@ class AdvancedLevelActivity : ComponentActivity() {
 
                 flagCountries.forEachIndexed { index, country ->
                     Image(
-                        painter = painterResource(id = getDrawableResId(LocalContext.current, country.code)),
+                        painter = painterResource(
+                            id = getDrawableResId(
+                                LocalContext.current,
+                                country.code
+                            )
+                        ),
                         contentDescription = country.name,
                         modifier = Modifier
                             .size(100.dp)
@@ -117,9 +141,17 @@ class AdvancedLevelActivity : ComponentActivity() {
                         enabled = buttonText == "Submit",
                         colors = TextFieldDefaults.textFieldColors(
                             backgroundColor = if (resultMessage.isNotEmpty()) {
-                                if (flagCountries[index].name.equals(userInputs[index].text, ignoreCase = true)) Color.Green else Color.Red
+                                if (flagCountries[index].name.equals(
+                                        userInputs[index].text,
+                                        ignoreCase = true
+                                    )
+                                ) Color.Green else Color.Red
                             } else Color.White,
-                            textColor = if (resultMessage.isNotEmpty() && !flagCountries[index].name.equals(userInputs[index].text, ignoreCase = true)) Color.Red else Color.Black
+                            textColor = if (resultMessage.isNotEmpty() && !flagCountries[index].name.equals(
+                                    userInputs[index].text,
+                                    ignoreCase = true
+                                )
+                            ) Color.Red else Color.Black
                         )
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -143,7 +175,8 @@ class AdvancedLevelActivity : ComponentActivity() {
                                 resultColor = Color.Red
                                 incorrectAttempts++
                                 if (incorrectAttempts >= 3) {
-                                    resultMessage = "WRONG! Correct answers: ${flagCountries.joinToString(", ") { it.name }}"
+                                    resultMessage =
+                                        "WRONG! Correct answers: ${flagCountries.joinToString(", ") { it.name }}"
                                     buttonText = "Next"
                                 }
                             }
@@ -153,7 +186,8 @@ class AdvancedLevelActivity : ComponentActivity() {
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = resultColor.takeIf { it != Color.Transparent } ?: Color.Gray,
+                        backgroundColor = resultColor.takeIf { it != Color.Transparent }
+                            ?: Color.Gray,
                         contentColor = Color.White
                     )
                 ) {
@@ -164,6 +198,7 @@ class AdvancedLevelActivity : ComponentActivity() {
 
                 Text(text = resultMessage, color = resultColor, fontSize = 18.sp)
             }
+        }
         } else {
             Column(
                 modifier = Modifier

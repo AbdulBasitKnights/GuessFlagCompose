@@ -6,8 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,12 +32,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.question.assignment.R
 import com.question.assignment.presentation.common.CountryViewModel
 import java.util.Locale
 
@@ -58,6 +63,20 @@ class GuessFlagActivity : ComponentActivity() {
         var currentCountryCode by remember { mutableStateOf(randomFlags.random()) } // Default code
         var selectedCountryIndex by remember { mutableStateOf(-1) } // No selection initially
         if (countries.isNotEmpty()) {
+            // Background drawable
+            val backgroundDrawable: Painter = painterResource(id = R.drawable.appbg)
+
+            Box(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                // Background Image
+                Image(
+                    painter = backgroundDrawable,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.FillHeight
+                )
             Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -128,11 +147,12 @@ class GuessFlagActivity : ComponentActivity() {
                     onClick = {
                         if (selectedCountryIndex != -1) {
                             val countryName = countries[selectedCountryIndex].code
-                            resultMessage = if (currentCountryCode.equals(countryName, ignoreCase = true)) {
-                                "Correct!"
-                            } else {
-                                "Incorrect. Try again."
-                            }
+                            resultMessage =
+                                if (currentCountryCode.equals(countryName, ignoreCase = true)) {
+                                    "Correct!"
+                                } else {
+                                    "Incorrect. Try again."
+                                }
                         }
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -158,6 +178,7 @@ class GuessFlagActivity : ComponentActivity() {
                     Text("Next Flag")
                 }
             }
+        }
         } else {
             Column(
                 modifier = Modifier
